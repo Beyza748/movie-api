@@ -1,39 +1,29 @@
-const API_BASE = "http://localhost:5000";
+async function filmAra() {
+    const film = document.getElementById("filmAdi").value;
 
-function getPopular() {
-    fetch(`${API_BASE}/popular`)
-        .then(res => res.json())
-        .then(data => {
-            let html = "";
-            data.results.forEach(movie => {
-                html += `
-                    <div class="movie">
-                        <h3>${movie.title}</h3>
-                        <p>Rating: ${movie.vote_average}</p>
-                        <p>Release: ${movie.release_date}</p>
-                    </div>
-                `;
-            });
-            document.getElementById("popular").innerHTML = html;
-        });
-}
+    if (!film) {
+        alert("Lütfen bir film adı girin!");
+        return;
+    }
 
-function searchMovie() {
-    const query = document.getElementById("searchInput").value;
+    const API_KEY = "demo";  // Buraya kendi OMDB API key’ini yazabilirsin
+    const url = `https://www.omdbapi.com/?t=${film}&apikey=${API_KEY}`;
 
-    fetch(`${API_BASE}/search/${query}`)
-        .then(res => res.json())
-        .then(data => {
-            let html = "";
-            data.results.forEach(movie => {
-                html += `
-                    <div class="movie">
-                        <h3>${movie.title}</h3>
-                        <p>Rating: ${movie.vote_average}</p>
-                        <p>Release: ${movie.release_date}</p>
-                    </div>
-                `;
-            });
-            document.getElementById("results").innerHTML = html;
-        });
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const div = document.getElementById("filmSonuc");
+
+    if (data.Response === "False") {
+        div.innerHTML = "<p>Film bulunamadı.</p>";
+        return;
+    }
+
+    div.innerHTML = `
+        <h3>${data.Title}</h3>
+        <p><strong>Yıl:</strong> ${data.Year}</p>
+        <p><strong>Tür:</strong> ${data.Genre}</p>
+        <p><strong>IMDB:</strong> ${data.imdbRating}</p>
+        <img src="${data.Poster}" style="width:150px;">
+    `;
 }
