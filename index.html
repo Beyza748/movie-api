@@ -2,37 +2,34 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Movie API Client</title>
+    <title>Film Arama</title>
     <style>
         body {
-            background: #f2f2f2;
-            font-family: Arial, sans-serif;
+            font-family: Arial;
+            background: #f0f0f0;
             padding: 20px;
         }
-        .movie {
-            background: white;
+        input, button {
             padding: 10px;
-            margin: 10px 0;
+            font-size: 16px;
+        }
+        #filmSonuc {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
 
-    <h1>🎬 Movie API Client</h1>
+    <h2>Film Arama</h2>
 
-    <button onclick="getPopular()">Popüler Filmleri Getir</button>
-    <div id="popular"></div>
+    <input type="text" id="filmAdi" placeholder="Film adı gir...">
+    <button onclick="filmAra()">Ara</button>
 
-    <hr>
-
-    <h3>Film Ara:</h3>
-    <input type="text" id="searchInput" placeholder="Örn: inception">
-    <button onclick="searchMovie()">Ara</button>
-    <div id="results"></div>
+    <div id="filmSonuc"></div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
