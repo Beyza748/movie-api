@@ -6,24 +6,28 @@ async function filmAra() {
         return;
     }
 
-    const API_KEY = "demo";  // Buraya kendi OMDB API key’ini yazabilirsin
-    const url = `https://www.omdbapi.com/?t=${film}&apikey=${API_KEY}`;
+    // TMDB API key (ücretsiz alıyorsun)
+    const API_KEY = "BURAYA_TMDB_API_KEY_YAZ"; 
 
-    const response = await fetch(url);
-    const data = await response.json();
+    // 1) TMDB Film arama API
+    const searchRes = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${film}`
+    );
+    const searchData = await searchRes.json();
 
-    const div = document.getElementById("filmSonuc");
-
-    if (data.Response === "False") {
-        div.innerHTML = "<p>Film bulunamadı.</p>";
+    if (!searchData.results || searchData.results.length === 0) {
+        document.getElementById("filmSonuc").textContent = "Film bulunamadı.";
         return;
     }
 
-    div.innerHTML = `
-        <h3>${data.Title}</h3>
-        <p><strong>Yıl:</strong> ${data.Year}</p>
-        <p><strong>Tür:</strong> ${data.Genre}</p>
-        <p><strong>IMDB:</strong> ${data.imdbRating}</p>
-        <img src="${data.Poster}" style="width:150px;">
+    // İlk bulunan film
+    const movie = searchData.results[0];
+
+    // 2) Sonuçları ekrana yaz
+    document.getElementById("filmSonuc").innerHTML = `
+        <h3>${movie.title}</h3>
+        <p><strong>Çıkış yılı:</strong> ${movie.release_date}</p>
+        <p><strong>Özet:</strong> ${movie.overview}</p>
+        <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" style="margin-top:10px;">
     `;
 }
