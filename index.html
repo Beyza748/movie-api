@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie API Client</title>
+    <style>
+        body {
+            background: #f2f2f2;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .movie {
+            background: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎬 Movie API Client</h1>
+
+    <button onclick="getPopular()">Popüler Filmleri Getir</button>
+    <div id="popular"></div>
+
+    <hr>
+
+    <h3>Film Ara:</h3>
+    <input type="text" id="searchInput" placeholder="Örn: inception">
+    <button onclick="searchMovie()">Ara</button>
+    <div id="results"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
