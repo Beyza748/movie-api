@@ -1,35 +1,26 @@
 import { searchMovies } from './services/movieService.js';
 
-const searchInput = document.getElementById('search-input');
-const searchBtn = document.getElementById('search-btn');
-const resultsDiv = document.getElementById('results');
+const input = document.getElementById('search-input');
+const btn = document.getElementById('search-btn');
+const results = document.getElementById('results');
 
-searchBtn.addEventListener('click', async () => {
-    const query = searchInput.value.trim();
+btn.addEventListener('click', async () => {
+    const query = input.value.trim();
     if (!query) return;
 
-    resultsDiv.innerHTML = "<p>Aranıyor...</p>";
+    results.innerHTML = "<p>Aranıyor...</p>";
+    const data = await searchMovies(query);
+    results.innerHTML = "";
 
-    const movies = await searchMovies(query);
-    
-    resultsDiv.innerHTML = ""; // Temizle
-
-    if (movies.length === 0) {
-        resultsDiv.innerHTML = "<p>Sonuç bulunamadı.</p>";
-        return;
-    }
-
-    movies.forEach(item => {
-        const movie = item.show;
+    data.forEach(item => {
+        const show = item.show;
         const card = document.createElement('div');
-        card.className = 'movie-card';
-        
+        card.className = 'card';
         card.innerHTML = `
-            <img src="${movie.image ? movie.image.medium : 'https://via.placeholder.com/210x295?text=Resim+Yok'}" alt="${movie.name}">
-            <h3>${movie.name}</h3>
-            <p>Puan: ${movie.rating.average || 'Yok'}</p>
-            <a href="${movie.url}" target="_blank">Detaylar</a>
+            <img src="${show.image ? show.image.medium : 'https://via.placeholder.com/210x295'}" alt="${show.name}">
+            <h3>${show.name}</h3>
+            <p>Tür: ${show.genres.join(', ') || 'Belirtilmemiş'}</p>
         `;
-        resultsDiv.appendChild(card);
+        results.appendChild(card);
     });
 });
