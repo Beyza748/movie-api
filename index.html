@@ -2,34 +2,19 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Film Arama</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f0f0f0;
-            padding: 20px;
-        }
-        input, button {
-            padding: 10px;
-            font-size: 16px;
-        }
-        #filmSonuc {
-            margin-top: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-        }
-    </style>
+    <title>Film & Dizi Bulucu</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <h2>Film Arama</h2>
-
-    <input type="text" id="filmAdi" placeholder="Film adı gir...">
-    <button onclick="filmAra()">Ara</button>
-
-    <div id="filmSonuc"></div>
-
-    <script src="script.js"></script>
+    <div class="container">
+        <h1>🎬 Film & Dizi Bulucu</h1>
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Film veya dizi adı yazın...">
+            <button id="search-btn">Ara</button>
+        </div>
+        <div id="results" class="results-grid">
+            </div>
+    </div>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
